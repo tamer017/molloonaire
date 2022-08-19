@@ -20,6 +20,7 @@ public class Game extends AppCompatActivity {
 
         initQuestions(); // to initiate the dataset
 
+
     }
 
     public void initQuestions()
