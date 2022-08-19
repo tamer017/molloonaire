@@ -11,12 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Molloonaire">
         <activity
-            android:name=".activities.game"
+            android:name=".activities.Game"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"/>
         <activity
-            android:name=".activities.instructions"
+            android:name=".activities.Instructions"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"/>

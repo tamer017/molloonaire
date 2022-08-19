@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.tamer.molloonaire.R;
 
-public class instructions extends AppCompatActivity {
+public class Instructions extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
