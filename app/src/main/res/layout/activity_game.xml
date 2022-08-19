@@ -74,14 +74,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
+                <Button
                     android:text="@string/option_text"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/option1"/>
 
-                <TextView
+                <Button
                     android:layout_weight="1"
                     android:text="@string/option_text"
                     android:layout_width="wrap_content"
@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
+                <Button
                     android:layout_weight="1"
                     android:text="@string/option_text"
                     android:layout_width="wrap_content"
@@ -103,7 +103,7 @@
                     android:id="@+id/option3"/>
 
 
-                <TextView
+                <Button
                     android:layout_weight="1"
                     android:text="@string/option_text"
                     android:layout_width="wrap_content"
