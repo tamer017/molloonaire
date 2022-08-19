@@ -3,6 +3,10 @@ package com.tamer.molloonaire.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.tamer.molloonaire.R;
 
@@ -12,7 +16,18 @@ public class Game extends AppCompatActivity {
 
     ArrayList<Question> easy , medium , hard;  // stores the question in each corresponding level
 
+    ImageView askAudience, askFriend, changeQuestion, removeTwo; // help methods
+
+    TextView questionTxt; // Question
+
+    Button option1, option2, option3, option4; //Options
+    
+    boolean isAnswered = false ; // to indicate if the user has answered the question or not
+    
+    String userAnswer = "" ; // user's answer to the current Question 
+
     int question = 1;  // represent the current question number from [1 , 15]
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,9 +35,168 @@ public class Game extends AppCompatActivity {
 
         initQuestions(); // to initiate the dataset
 
+        initGUI(); // to initiate the GUI
+        
+
+        while (question <= 15)
+        {
+            Question current = null;
+
+            // The if is used to select the difficulty of the question
+            if (question >= 1 && question <= 5 )
+                current = getEasyQuestion();
+            else if (question >= 6 && question <= 10)
+                current = getMediumQuestion();
+            else
+                current = getHardQuestion();
+
+            displayTheQuestion(current);
+            
+            isAnswered = false;
+            
+            while (!isAnswered);
+            
+            if (!userAnswer.equals(current.getAnswer()))
+            {
+                gameOver();
+            }
+            question++;
+        }
+        if (question == 16)
+            congratulate();
 
     }
 
+    private void congratulate() {
+    }
+
+    private void gameOver() {
+    }
+
+    public void displayTheQuestion(Question current)
+    {
+        // to shuffle the options every time
+        ArrayList<String> options = new ArrayList<>();
+        options.add(current.getOption1());
+        options.add(current.getOption2());
+        options.add(current.getOption3());
+        options.add(current.getOption4());
+
+        int randIndex = (int)(Math.random() * options.size());
+        String cur = options.get(randIndex);
+        options.remove(randIndex);
+        option1.setText(cur);
+
+        randIndex = (int)(Math.random() * options.size());
+        cur = options.get(randIndex);
+        options.remove(randIndex);
+        option2.setText(cur);
+
+        randIndex = (int)(Math.random() * options.size());
+        cur = options.get(randIndex);
+        options.remove(randIndex);
+        option3.setText(cur);
+
+        randIndex = (int)(Math.random() * options.size());
+        cur = options.get(randIndex);
+        options.remove(randIndex);
+        option4.setText(cur);
+
+        // to make the button enabled
+        option2.setEnabled(true);
+        option3.setEnabled(true);
+        option4.setEnabled(true);
+        option1.setEnabled(true);
+
+        questionTxt.setText(current.getQuestion());
+    }
+    public void  initGUI()
+    {
+        // images
+        askAudience = findViewById(R.id.ask_audience);
+        askFriend = findViewById(R.id.ask_friend);
+        changeQuestion = findViewById(R.id.change_question);
+        removeTwo = findViewById(R.id.remove_two);
+
+        // buttons
+        option1 = findViewById(R.id.option1);
+        option2 = findViewById(R.id.option2);
+        option3 = findViewById(R.id.option3);
+        option4 = findViewById(R.id.option4);
+
+        //TextView
+        questionTxt = findViewById(R.id.question);
+
+        // Add ClickListener to the buttons
+
+        option1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                option1.setEnabled(false);
+                option2.setEnabled(false);
+                option3.setEnabled(false);
+                option4.setEnabled(false);
+                isAnswered = true;
+            }
+        });
+
+        option2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                option1.setEnabled(false);
+                option2.setEnabled(false);
+                option3.setEnabled(false);
+                option4.setEnabled(false);
+                isAnswered = true;
+            }
+        });
+
+        option3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                option1.setEnabled(false);
+                option2.setEnabled(false);
+                option3.setEnabled(false);
+                option4.setEnabled(false);
+                isAnswered = true;
+            }
+        });
+
+        option4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                option1.setEnabled(false);
+                option2.setEnabled(false);
+                option3.setEnabled(false);
+                option4.setEnabled(false);
+                isAnswered = true;
+            }
+        });
+    }
+
+    public Question getEasyQuestion()
+    {
+        int random = (int)(Math.random() * easy.size());
+        Question current = easy.get(random);
+        easy.remove(random);
+        return current;
+    }
+
+    public Question getMediumQuestion()
+    {
+        int random = (int)(Math.random() * medium.size());
+        Question current = medium.get(random);
+        medium.remove(random);
+        return current;
+    }
+
+    public Question getHardQuestion()
+    {
+        int random = (int)(Math.random() * hard.size());
+        Question current = hard.get(random);
+        hard.remove(random);
+        return current;
+    }
     public void initQuestions()
     {
         easy = new ArrayList<>();
