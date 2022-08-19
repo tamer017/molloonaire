@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tamer.molloonaire.R;
 
@@ -28,42 +29,47 @@ public class Game extends AppCompatActivity {
 
     int question = 1;  // represent the current question number from [1 , 15]
 
+    Question current = null; // current Question object
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        getSupportActionBar().hide();
         initQuestions(); // to initiate the dataset
 
         initGUI(); // to initiate the GUI
         
+        getNextQuestion();
 
-        while (question <= 15)
-        {
-            Question current = null;
+    }
 
-            // The if is used to select the difficulty of the question
-            if (question >= 1 && question <= 5 )
-                current = getEasyQuestion();
-            else if (question >= 6 && question <= 10)
-                current = getMediumQuestion();
-            else
-                current = getHardQuestion();
+    private void getNextQuestion() {
 
-            displayTheQuestion(current);
-            
-            isAnswered = false;
-            
-            while (!isAnswered);
-            
-            if (!userAnswer.equals(current.getAnswer()))
-            {
-                gameOver();
-            }
-            question++;
-        }
-        if (question == 16)
+
+        if (question == 16){
             congratulate();
+            return;
+        }
+
+
+        // The if is used to select the difficulty of the question
+        Toast.makeText(this, question + "", Toast.LENGTH_SHORT).show();
+        if (question >= 1 && question <= 5)
+            current = getEasyQuestion();
+        else if (question >= 6 && question <= 10)
+            current = getMediumQuestion();
+        else
+            current = getHardQuestion();
+
+        displayTheQuestion(current);
+
+
+        if (!userAnswer.equals(current.getAnswer())) {
+            gameOver();
+        }
+
 
     }
 
@@ -132,46 +138,46 @@ public class Game extends AppCompatActivity {
         option1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                option1.setEnabled(false);
-                option2.setEnabled(false);
-                option3.setEnabled(false);
-                option4.setEnabled(false);
-                isAnswered = true;
+                btnCliked(option1.getText().toString());
+
             }
         });
 
         option2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                option1.setEnabled(false);
-                option2.setEnabled(false);
-                option3.setEnabled(false);
-                option4.setEnabled(false);
-                isAnswered = true;
+                btnCliked(option2.getText().toString());
             }
         });
 
         option3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                option1.setEnabled(false);
-                option2.setEnabled(false);
-                option3.setEnabled(false);
-                option4.setEnabled(false);
-                isAnswered = true;
+                btnCliked(option3.getText().toString());
             }
         });
 
         option4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                option1.setEnabled(false);
-                option2.setEnabled(false);
-                option3.setEnabled(false);
-                option4.setEnabled(false);
-                isAnswered = true;
+                btnCliked(option4.getText().toString());
             }
         });
+    }
+
+    private void btnCliked(String text) {
+        option1.setEnabled(false);
+        option2.setEnabled(false);
+        option3.setEnabled(false);
+        option4.setEnabled(false);
+        if (text.equals(current.getAnswer()))
+        {
+            question++;
+            getNextQuestion();
+        }else
+        {
+            gameOver();
+        }
     }
 
     public Question getEasyQuestion()
