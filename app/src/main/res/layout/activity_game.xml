@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".activities.Game"
     android:gravity="center"
-    android:background="@color/purple_700">
+    android:background="#240D57">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
 
         <TextView
             android:layout_marginTop="5dp"
-            android:background="@color/white"
+            android:background="@drawable/rounded"
             android:id="@+id/question"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -127,6 +127,7 @@
                 android:orientation="vertical"
                 android:layout_marginEnd="5dp">
                 <androidx.cardview.widget.CardView
+                    app:cardCornerRadius="10dp"
                     android:layout_marginVertical="2.5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -136,6 +137,8 @@
                     android:id="@+id/option1">
 
                     <LinearLayout
+                        app:contentPadding="2.5dp"
+                        android:background="@drawable/rounded"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -161,7 +164,7 @@
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
                     android:layout_marginVertical="2.5dp"
-
+                    app:cardCornerRadius="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -170,6 +173,8 @@
                     android:id="@+id/option2">
 
                     <LinearLayout
+                        app:contentPadding="2.5dp"
+                        android:background="@drawable/rounded"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -203,15 +208,18 @@
                 android:orientation="vertical"
                 android:layout_marginStart="5dp">
                 <androidx.cardview.widget.CardView
+                    android:background="@color/black"
+                    app:cardCornerRadius="10dp"
                     android:layout_marginVertical="2.5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layoutDirection="rtl"
-                    app:cardElevation="5dp"
                     android:id="@+id/option3">
 
                     <LinearLayout
+                        android:background="@drawable/rounded"
+                        app:contentPadding="2.5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -236,6 +244,7 @@
 
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
+                    app:cardCornerRadius="10dp"
                     android:layout_marginVertical="2.5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -245,6 +254,8 @@
                     android:id="@+id/option4">
 
                     <LinearLayout
+                        android:background="@drawable/rounded"
+                        app:contentPadding="2.5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
