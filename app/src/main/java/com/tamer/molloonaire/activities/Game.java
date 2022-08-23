@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +23,7 @@ public class Game extends AppCompatActivity {
 
     TextView questionTxt; // Question
 
-    CardView option1, option2, option3, option4; // options cards
+    LinearLayout option1, option2, option3, option4; // options cards
 
     TextView option1_content, option2_content, option3_content, option4_content; // options contents
 
@@ -98,22 +99,26 @@ public class Game extends AppCompatActivity {
         int randIndex = (int)(Math.random() * options.size());
         String cur = options.get(randIndex);
         options.remove(randIndex);
-        option1_number.setText(cur);
+        option1_content.setText(cur);
+        option1_number.setText("1"+" : ");
 
         randIndex = (int)(Math.random() * options.size());
         cur = options.get(randIndex);
         options.remove(randIndex);
-        option2_number.setText(cur);
+        option2_content.setText(cur);
+        option2_number.setText("2"+" : ");
 
         randIndex = (int)(Math.random() * options.size());
         cur = options.get(randIndex);
         options.remove(randIndex);
-        option3_number.setText(cur);
+        option3_content.setText(cur);
+        option3_number.setText("3"+" : ");
 
         randIndex = (int)(Math.random() * options.size());
         cur = options.get(randIndex);
         options.remove(randIndex);
-        option4_number.setText(cur);
+        option4_content.setText(cur);
+        option4_number.setText("4"+" : ");
 
         // to make the button enabled
         option2.setEnabled(true);
@@ -188,6 +193,7 @@ public class Game extends AppCompatActivity {
     }
 
     private void btnCliked(String text) {
+        Toast.makeText(Game.this, text, Toast.LENGTH_SHORT).show();
         option1.setEnabled(false);
         option2.setEnabled(false);
         option3.setEnabled(false);
