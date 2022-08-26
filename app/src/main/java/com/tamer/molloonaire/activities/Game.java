@@ -11,8 +11,8 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,13 +28,26 @@ import java.util.ArrayList;
 
 public class Game extends AppCompatActivity {
 
+    public static final String[] levels_names ={"المستوي الاول ", "المستوى الثاني", "المستوى الثالث ", "المستوى الرابع ", "المستوى الخامس", "المستوى السادس ", "المستوى السابع ", "المستوى الثامن", "المستوى التاسع ", "المستوى العاشر ",
+            "المستوى الحادي عشر ", "المستوى الثاني عشر ", "المستوى الثالث عشر ", "المستوى الرابع عشر ", "المستوى الخامس عشر ", "المستوى السادس عشر ", "المستوى السابع عشر ", "المستوى الثامن عشر ", "المستوى التاسع عشر ", "المستوى العشرين ", "المستوى الحادي و العشرين",
+            "المستوى الثاني و العشرين", "المستوى الثالث و العشرين ", "المستوى الرابع و العشرين ", "المستوى الخامس و العشرين ", "المستوى السادس و العشرين ", "المستوى السابع و العشرين ", "المستوى الثامن و العشرين ", "المستوى التاسع و العشرين", "المستوى الثلاثين ",
+            };
+
     ArrayList<Question> easy , medium , hard;  // stores the question in each corresponding level
+
+    TextView questionNumber; // indicate the number of the current question displayed in the screen
 
     ImageView askAudience, askFriend, changeQuestion, removeTwo; // help methods
 
     TextView questionTxt; // Question
 
-    Button option1, option2, option3, option4; //Options
+    TextView option1_content, option2_content, option3_content, option4_content; // options contents
+
+    TextView option1_number, option2_number, option3_number, option4_number; // options numbers
+
+    ImageView sound, scape; // scape and sound
+
+    LinearLayout option1, option2, option3, option4; // options cards
 
     int question = 1;  // represent the current question number from [1 , 15]
 
@@ -72,6 +85,7 @@ public class Game extends AppCompatActivity {
         else
             current = getHardQuestion();
 
+
         displayTheQuestion(current);
 
 
@@ -89,6 +103,8 @@ public class Game extends AppCompatActivity {
 
     public void displayTheQuestion(Question current)
     {
+
+        questionNumber.setText(levels_names[question - 1]);
         // to shuffle the options every time
         ArrayList<String> options = new ArrayList<>();
         options.add(current.getOption1());
@@ -99,28 +115,28 @@ public class Game extends AppCompatActivity {
         int randIndex = (int)(Math.random() * options.size());
         String cur = options.get(randIndex);
         options.remove(randIndex);
-        option1.setText(cur);
+        option1_content.setText(cur);
 
         randIndex = (int)(Math.random() * options.size());
         cur = options.get(randIndex);
         options.remove(randIndex);
-        option2.setText(cur);
+        option2_content.setText(cur);
 
         randIndex = (int)(Math.random() * options.size());
         cur = options.get(randIndex);
         options.remove(randIndex);
-        option3.setText(cur);
+        option3_content.setText(cur);
 
         randIndex = (int)(Math.random() * options.size());
         cur = options.get(randIndex);
         options.remove(randIndex);
-        option4.setText(cur);
+        option4_content.setText(cur);
 
         // to make the button enabled
-        option2.setEnabled(true);
-        option3.setEnabled(true);
-        option4.setEnabled(true);
-        option1.setEnabled(true);
+        option2.setVisibility(View.VISIBLE);
+        option3.setVisibility(View.VISIBLE);
+        option4.setVisibility(View.VISIBLE);
+        option1.setVisibility(View.VISIBLE);
 
         questionTxt.setText(current.getQuestion());
     }
@@ -132,42 +148,58 @@ public class Game extends AppCompatActivity {
         changeQuestion = findViewById(R.id.change_question);
         removeTwo = findViewById(R.id.remove_two);
 
-        // buttons
+        // options cards
         option1 = findViewById(R.id.option1);
         option2 = findViewById(R.id.option2);
         option3 = findViewById(R.id.option3);
         option4 = findViewById(R.id.option4);
 
+        // options numbers textview
+        option1_number = findViewById(R.id.option1_number);
+        option2_number = findViewById(R.id.option2_number);
+        option3_number = findViewById(R.id.option3_number);
+        option4_number = findViewById(R.id.option4_number);
+
+        // options content textview
+        option1_content = findViewById(R.id.option1_content);
+        option2_content = findViewById(R.id.option2_content);
+        option3_content = findViewById(R.id.option3_content);
+        option4_content = findViewById(R.id.option4_content);
+
+        // sound and logout image views
+        sound = findViewById(R.id.mute);
+        scape = findViewById(R.id.scape);
         //TextView
         questionTxt = findViewById(R.id.question);
+        questionNumber = findViewById(R.id.question_number);
 
         // Add ClickListener to the buttons
 
         option1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnCliked(option1.getText().toString());
+                btnCliked(option1_content.getText().toString());
             }
         });
 
         option2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnCliked(option2.getText().toString());
+                btnCliked(option2_content.getText().toString());
             }
         });
 
         option3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnCliked(option3.getText().toString());
+                btnCliked(option3_content.getText().toString());
             }
         });
 
         option4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnCliked(option4.getText().toString());
+                btnCliked(option4_content.getText().toString());
             }
         });
 
@@ -213,11 +245,11 @@ public class Game extends AppCompatActivity {
         int correctAnswerIndex = 3;
         // get the correct Answer
 
-        if (current.getAnswer().equals(option1.getText().toString()))
+        if (current.getAnswer().equals(option1_content.getText().toString()))
             correctAnswerIndex = 0;
-        else if (current.getAnswer().equals(option2.getText().toString()))
+        else if (current.getAnswer().equals(option2_content.getText().toString()))
             correctAnswerIndex = 1;
-        else if (current.getAnswer().equals(option3.getText().toString()))
+        else if (current.getAnswer().equals(option3_content.getText().toString()))
             correctAnswerIndex = 2;
 
         Bundle bundle = new Bundle();
@@ -249,32 +281,32 @@ public class Game extends AppCompatActivity {
 
     private void removeTwoWrongAnswers() {
 
-        ArrayList <Button> buttonList = new ArrayList<>();
+        ArrayList <LinearLayout> layoutsList = new ArrayList<>();
 
-        buttonList.add(option1);
-        buttonList.add(option2);
-        buttonList.add(option3);
-        buttonList.add(option4);
+        layoutsList.add(option1);
+        layoutsList.add(option2);
+        layoutsList.add(option3);
+        layoutsList.add(option4);
 
         // remove the correct answer button from the list
-        if (current.getAnswer().equals(option1.getText().toString()))
-            buttonList.remove(0);
-        else if (current.getAnswer().equals(option2.getText().toString()))
-            buttonList.remove(1);
-        else if (current.getAnswer().equals(option3.getText().toString()))
-            buttonList.remove(2);
+        if (current.getAnswer().equals(option1_content.getText().toString()))
+            layoutsList.remove(0);
+        else if (current.getAnswer().equals(option2_content.getText().toString()))
+            layoutsList.remove(1);
+        else if (current.getAnswer().equals(option3_content.getText().toString()))
+            layoutsList.remove(2);
         else
-            buttonList.remove(3);
+            layoutsList.remove(3);
 
         // remove two incorrect Answers
-        int randIndex = (int)(Math.random() * buttonList.size());
-        buttonList.get(randIndex).setEnabled(false);
-        buttonList.get(randIndex).setText("");
-        buttonList.remove(randIndex);
+        int randIndex = (int)(Math.random() * layoutsList.size());
+        layoutsList.get(randIndex).setEnabled(false);
+        layoutsList.get(randIndex).setVisibility(View.GONE);
+        layoutsList.remove(randIndex);
 
-        randIndex = (int)(Math.random() * buttonList.size());
-        buttonList.get(randIndex).setEnabled(false);
-        buttonList.get(randIndex).setText("");
+        randIndex = (int)(Math.random() * layoutsList.size());
+        layoutsList.get(randIndex).setEnabled(false);
+        layoutsList.get(randIndex).setVisibility(View.GONE);
 
 
 
@@ -283,10 +315,10 @@ public class Game extends AppCompatActivity {
 
     private void btnCliked(String text) {
 
-        option1.setEnabled(false);
-        option2.setEnabled(false);
-        option3.setEnabled(false);
-        option4.setEnabled(false);
+//        option1.setEnabled(false);
+//        option2.setEnabled(false);
+//        option3.setEnabled(false);
+//        option4.setEnabled(false);
         if (text.equals(current.getAnswer()))
         {
             question++;

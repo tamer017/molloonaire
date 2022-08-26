@@ -207,6 +207,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.15"
                                 android:text="1 :"
+                                android:textColor="@color/white"
                                 android:textAlignment="viewEnd"
                                 android:textStyle="bold" />
 
@@ -215,6 +216,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.85"
+                                android:textColor="@color/white"
                                 android:text="@string/option_text"
                                 android:textAlignment="viewStart" />
                         </LinearLayout>
@@ -245,6 +247,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.15"
                                 android:text="2 :"
+                                android:textColor="@color/white"
                                 android:textAlignment="viewEnd"
                                 android:textStyle="bold" />
 
@@ -253,6 +256,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.85"
+                                android:textColor="@color/white"
                                 android:text="@string/option_text"
                                 android:textAlignment="viewStart" />
                         </LinearLayout>
@@ -292,6 +296,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.15"
                                 android:text="3 :"
+                                android:textColor="@color/white"
                                 android:textAlignment="viewEnd"
                                 android:textStyle="bold" />
 
@@ -300,6 +305,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.85"
+                                android:textColor="@color/white"
                                 android:text="@string/option_text"
                                 android:textAlignment="viewStart" />
                         </LinearLayout>
@@ -330,6 +336,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.15"
                                 android:text="4 :"
+                                android:textColor="@color/white"
                                 android:textAlignment="viewEnd"
                                 android:textStyle="bold" />
 
@@ -339,6 +346,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.85"
                                 android:text="@string/option_text"
+                                android:textColor="@color/white"
                                 android:textAlignment="viewStart" />
                         </LinearLayout>
                     </RelativeLayout>
