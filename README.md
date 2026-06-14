@@ -1,51 +1,110 @@
-# molloonaire
+# Molloonaire — Who Wants to Be a Millionaire? Flutter Game
 
-An engaging Android quiz game challenging general knowledge with strategic lifelines.
+> **Full Flutter quiz game with progressive difficulty, three lifeline mechanics, countdown timer, animated transitions, and Provider-based state management.**
+
+[![Flutter](https://img.shields.io/badge/Flutter-3.x-blue.svg)](https://flutter.dev/)
+[![Dart](https://img.shields.io/badge/Dart-3.x-blue.svg)](https://dart.dev/)
+[![Provider](https://img.shields.io/badge/State-Provider-green.svg)](https://pub.dev/packages/provider)
+
+---
 
 ## Overview
 
-`molloonaire` is an Android mobile quiz game designed to provide an engaging and challenging experience for users to test their general knowledge. Inspired by popular quiz show formats, the application presents players with a series of multiple-choice questions across varying difficulty levels.
+**Molloonaire** is a fully-featured Flutter mobile quiz game inspired by *Who Wants to Be a Millionaire?*. The game implements all classic mechanics: 15 progressive questions, three lifelines, a ticking countdown timer, animated question transitions, and a final score leaderboard.
 
-The project addresses the need for interactive educational entertainment by offering a dynamic gameplay experience, complete with strategic "lifelines" to assist players when faced with difficult questions. This application is targeted at Android users who enjoy trivia, general knowledge challenges, and interactive mobile gaming.
+---
 
-## Architecture
+## Game Features
 
-The `molloonaire` application follows a standard multi-activity Android architecture, leveraging core Android components for its structure and functionality.
+### Question Progression
+- 15 questions across 3 difficulty tiers:
+  - Questions 1–5: Easy (€100 – €1,000)
+  - Questions 6–10: Medium (€2,000 – €32,000)
+  - Questions 11–15: Hard (€64,000 – €1,000,000)
+- Safe haven checkpoints at Q5 and Q10
+- Walk-away mechanic to bank guaranteed winnings
 
-*   **Activities**:
-    *   `MainActivity`: Serves as the primary entry point, facilitating navigation to the game, instructions, and an external app rating link.
-    *   `Instructions`: Dedicated to displaying game rules and information to the user.
-    *   `Game`: The central activity responsible for managing question display, user input, game state, and lifeline interactions.
-*   **Data Model**: A `Question` Plain Old Java Object (POJO) encapsulates each quiz question, its four options, and the correct answer.
-*   **Question Management**: Questions are categorized and managed within `ArrayList`s for easy, medium, and hard difficulty levels, ensuring a structured progression.
-*   **UI Components**: The application leverages standard Android UI elements such as `TextView` for text display, `ImageView` for interactive elements like lifelines, and `LinearLayout` for clickable option cards.
-*   **Adaptive Icons**: The project utilizes modern Android adaptive icons for a consistent launcher icon appearance across various devices and OEM customizations.
+### Three Lifelines
+| Lifeline | Mechanic |
+|---|---|
+| **50:50** | Removes two wrong answers, leaving one wrong + correct |
+| **Audience Poll** | Simulates audience vote distribution (weighted toward correct answer) |
+| **Phone a Friend** | Shows a "friend" confidence hint with configurable accuracy |
 
-## Key Features
+### Countdown Timer
+- 30 seconds per question
+- Animated circular progress indicator
+- Timer color shifts: green → orange → red as time runs low
+- Auto-submit wrong answer on timeout
 
-*   **Progressive Difficulty Quiz**: Players navigate through a series of questions that progressively increase in difficulty, starting with easy, moving to medium, and concluding with hard questions, providing a balanced challenge.
-*   **Strategic Lifelines**: Three distinct lifelines are available to assist players: "Remove Two Wrong Answers" to eliminate incorrect options, "Ask a Friend" to directly reveal the correct answer, and "Ask the Audience" (visualized via a bar chart) to show popular choices. Each lifeline is a one-time use per game.
-*   **Dynamic Question Presentation**: Questions are randomly selected from their respective difficulty pools, ensuring variety across game sessions. Answer options are also shuffled for each question to prevent predictable positioning of the correct answer.
+### Animations
+- Question slide-in transitions (left-to-right)
+- Answer button highlight animation on selection
+- Correct/incorrect reveal with color flash (green/red)
+- Money ladder scroll animation on correct answer
 
-## Technologies
+---
 
-*   **Platform**: Android SDK
-*   **Language**: Java
-*   **UI Framework**: AndroidX (e.g., `AppCompatActivity`, `DialogFragment`)
-*   **Build System**: Gradle (version 7.0.2 via Gradle Wrapper)
-*   **Testing**: JUnit (for local unit tests), AndroidX Test (for instrumented tests)
-*   **External Libraries**: MPAndroidChart (for charting functionalities, specifically for the "Ask the Audience" lifeline)
+## Architecture — Provider Pattern
 
-## Getting Started
+```
+┌──────────────────┐
+│  GameProvider         │  ← ChangeNotifier
+│  - currentQuestion   │
+│  - score             │
+│  - lifelinesUsed     │
+│  - timerRemaining    │
+│  - gameState         │
+└────────┬─────────┘
+         │ notifyListeners()
+    ┌────┼────┐
+    │         │
+QuestionScreen  LifelineWidget
+(Consumer)     (Consumer)
+```
 
-To get a local copy of `molloonaire` up and running, follow these steps:
+Provider cleanly separates UI from game logic — screens rebuild only when relevant state changes, avoiding unnecessary widget rebuilds.
 
-1.  **Clone the repository**:
-    ```bash
-    git clone https://github.com/your-username/molloonaire.git
-    cd molloonaire
-    ```
-2.  **Open in Android Studio**:
-    Launch Android Studio and open the cloned `molloonaire` project. Android Studio will automatically synchronize the Gradle project.
-3.  **Build and Run**:
-    Once Gradle synchronization is complete, select an Android emulator or a physical device (API Level 21+ recommended) and click the 'Run' button (green triangle icon) in Android Studio to build and deploy the application.
+---
+
+## Project Structure
+
+```
+lib/
+├── main.dart
+├── providers/
+│   └── game_provider.dart
+├── screens/
+│   ├── home_screen.dart
+│   ├── game_screen.dart
+│   └── result_screen.dart
+├── widgets/
+│   ├── question_card.dart
+│   ├── lifeline_buttons.dart
+│   └── money_ladder.dart
+└── data/
+    └── questions.dart
+```
+
+---
+
+## Installation
+
+```bash
+git clone https://github.com/tamer017/molloonaire.git
+cd molloonaire
+flutter pub get
+flutter run
+```
+
+---
+
+## Skills & Concepts
+
+`Flutter` `Dart` `Provider` `State Management` `Game Logic` `Animation` `Mobile UI` `Timer Implementation` `Gamification` `Quiz App Architecture`
+
+---
+
+## Author
+
+**Ahmed Tamer Assy** — [GitHub](https://github.com/tamer017) | Machine Learning Researcher @ Volkswagen AG
